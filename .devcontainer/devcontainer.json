@@ -46,7 +46,7 @@
     }
   },
 
-  "postCreateCommand": "cd /workspace/songListRust/nodejs-app && npm install && cd /workspace/songListRust/rust-app && cargo build",
+  "postCreateCommand": "cd nodejs-app && npm install && cd ../rust-app && cargo build",
   
   "remoteUser": "root"
 }

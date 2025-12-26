@@ -1,6 +1,7 @@
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
+use chrono::{Datelike, Utc};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct Song {
@@ -52,7 +53,7 @@ async fn create_song(song: web::Json<CreateSong>, data: web::Data<AppState>) -> 
         id: new_id,
         title: song.title.clone(),
         artist: song.artist.clone(),
-        year: song.year.unwrap_or_else(|| 2025),
+        year: song.year.unwrap_or_else(|| Utc::now().year() as u32),
     };
     
     songs.push(new_song.clone());
