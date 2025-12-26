@@ -1,0 +1,52 @@
+{
+  "name": "Song List - Node.js & Rust",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "nodejs-app",
+  "workspaceFolder": "/workspace",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "forwardPorts": [3000, 8080],
+  "portsAttributes": {
+    "3000": {
+      "label": "Node.js App",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Rust App",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "cd nodejs-app && npm install && cd ../rust-app && cargo build",
+  
+  "remoteUser": "root"
+}

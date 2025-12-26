@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  nodejs-app:
+    build:
+      context: ./nodejs-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./nodejs-app:/app
+      - /app/node_modules
+    command: npm start
+
+  rust-app:
+    build:
+      context: ./rust-app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
